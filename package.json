@@ -1,7 +1,7 @@
 {
   "name": "find-the-word",
   "version": "0.1.0",
-  "homepage": "https://filipechaves.github.io/filipechaves.github.io",
+  "homepage": "https://filipechaves.github.io/find-the-word",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.2",
