@@ -15,7 +15,7 @@ class App extends React.Component{
     const closeBy = [];
     const lettersFound = [];
     const inputLetters = [];
-    const inputTries = 2;
+    const inputTriesLeft = 2;
 
     for (var i = 0; i < 6;){
       var rnd = Math.floor(Math.random() * maxPositions);
@@ -32,7 +32,7 @@ class App extends React.Component{
       arrayPositions.push(rnd);
 
       lettersFound.push(<td className='td-notSelected' key={"notFound" + i}>?</td>)
-      for (var t = 0; t < inputTries; t++) {
+      for (var t = 0; t < inputTriesLeft; t++) {
         inputLetters.push(<td className='td-notSelected' key={"input" + (t*6 + i)}></td>)
       }
       closeBy.push({rowLetter: String.fromCharCode(65 + Math.floor(rnd / squareNumber)), row: rnd % squareNumber, line: Math.floor(rnd / squareNumber), found: false, key: rnd, value: word[j]});
@@ -54,7 +54,7 @@ class App extends React.Component{
         tds.push(<tr key={value} children={lines}/>);
     }
       
-    this.state = { found: 0, arrayPositions: arrayPositions, word: word, squareNumber: squareNumber, cells: allCells, tds: tds, close: closeBy, lettersFound: lettersFound, inputLetters: inputLetters, matrixTriesLeft: squareNumber, inputTries: inputTries, inputArrayLetters: [] };
+    this.state = { found: 0, arrayPositions: arrayPositions, word: word, squareNumber: squareNumber, cells: allCells, tds: tds, close: closeBy, lettersFound: lettersFound, inputLetters: inputLetters, matrixTriesLeft: squareNumber, inputTriesLeft: inputTriesLeft, inputTries: 0, inputArrayLetters: [] };
   }
     
   render() {
@@ -104,22 +104,27 @@ class App extends React.Component{
   }
 
   keyboardPressed(event){
-    const inputLetters = this.state.lettersFound;
-    const inputTries = this.state.inputTries;
+    const inputLetters = this.state.inputLetters;
+    var inputTriesLeft = this.state.inputTriesLeft;
+    var inputTries = this.state.inputTries;
     const inputArrayLetters = this.state.inputArrayLetters;
     
-    let isLetter = event.key.toLowerCase() != event.key.toUpperCase();
-    if (isLetter && inputArrayLetters.length < 6){
-      inputLetters[inputArrayLetters.length] = <td className='td-notSelected' key={"input" + (inputArrayLetters.length)}>{event.key.toUpperCase()}</td>;
+    let isLetter = event.key.toLowerCase() !== event.key.toUpperCase() && event.key.length === 1;
+    if (isLetter && inputArrayLetters.length < 6 * (inputTries+1)){
+      inputLetters[inputArrayLetters.length * (inputTries+1)] = <td className='td-notSelected' key={"input" + (inputArrayLetters.length)}>{event.key.toUpperCase()}</td>;
       inputArrayLetters.push(event.key.toUpperCase());
       this.setState({inputLetters, inputArrayLetters});
     }
-    else if (!isLetter && (inputArrayLetters.length > 0 || inputArrayLetters > 6)){
-      if (event.keyCode === 46){
+    else if (!isLetter && (inputArrayLetters.length > 6 * inputTries) && event.keyCode === 8){
         inputArrayLetters.pop();
         inputLetters[inputArrayLetters.length] = <td className='td-notSelected' key={"input" + (inputArrayLetters.length)}></td>;
         this.setState({inputLetters, inputArrayLetters});
-      }
+    }
+    else if (event.keyCode === 13 && inputArrayLetters.length === 6 * (inputTries + 1)){
+      inputTries += 1;
+      inputTriesLeft -=1;
+
+      this.setState({inputTries, inputTriesLeft});
     }
 
 
