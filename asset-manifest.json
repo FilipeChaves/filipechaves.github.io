@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/find-the-word/static/css/main.44dbd2b0.css",
-    "main.js": "/find-the-word/static/js/main.84dfbab5.js",
+    "main.js": "/find-the-word/static/js/main.97d55b0b.js",
     "static/js/787.47ff9aba.chunk.js": "/find-the-word/static/js/787.47ff9aba.chunk.js",
     "static/media/logo.svg": "/find-the-word/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/find-the-word/index.html",
     "main.44dbd2b0.css.map": "/find-the-word/static/css/main.44dbd2b0.css.map",
-    "main.84dfbab5.js.map": "/find-the-word/static/js/main.84dfbab5.js.map",
+    "main.97d55b0b.js.map": "/find-the-word/static/js/main.97d55b0b.js.map",
     "787.47ff9aba.chunk.js.map": "/find-the-word/static/js/787.47ff9aba.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.44dbd2b0.css",
-    "static/js/main.84dfbab5.js"
+    "static/js/main.97d55b0b.js"
   ]
 }
