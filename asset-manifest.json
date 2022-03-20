@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/filipechaves.github.io/static/css/main.44dbd2b0.css",
-    "main.js": "/filipechaves.github.io/static/js/main.e0236f94.js",
-    "static/js/787.47ff9aba.chunk.js": "/filipechaves.github.io/static/js/787.47ff9aba.chunk.js",
-    "static/media/logo.svg": "/filipechaves.github.io/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
-    "index.html": "/filipechaves.github.io/index.html",
-    "main.44dbd2b0.css.map": "/filipechaves.github.io/static/css/main.44dbd2b0.css.map",
-    "main.e0236f94.js.map": "/filipechaves.github.io/static/js/main.e0236f94.js.map",
-    "787.47ff9aba.chunk.js.map": "/filipechaves.github.io/static/js/787.47ff9aba.chunk.js.map"
+    "main.css": "/static/css/main.44dbd2b0.css",
+    "main.js": "/static/js/main.940ea28f.js",
+    "static/js/787.47ff9aba.chunk.js": "/static/js/787.47ff9aba.chunk.js",
+    "static/media/logo.svg": "/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/index.html",
+    "main.44dbd2b0.css.map": "/static/css/main.44dbd2b0.css.map",
+    "main.940ea28f.js.map": "/static/js/main.940ea28f.js.map",
+    "787.47ff9aba.chunk.js.map": "/static/js/787.47ff9aba.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.44dbd2b0.css",
-    "static/js/main.e0236f94.js"
+    "static/js/main.940ea28f.js"
   ]
 }
