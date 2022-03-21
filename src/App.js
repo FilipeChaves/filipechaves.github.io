@@ -110,19 +110,23 @@ class App extends React.Component{
     const inputArrayLetters = this.state.inputArrayLetters;
     
     let isLetter = event.key.toLowerCase() !== event.key.toUpperCase() && event.key.length === 1;
-    if (isLetter && inputArrayLetters.length < 6 * (inputTries+1)){
-      inputLetters[inputArrayLetters.length * (inputTries+1)] = <td className='td-notSelected' key={"input" + (inputArrayLetters.length)}>{event.key.toUpperCase()}</td>;
+    if (isLetter && (inputArrayLetters.length >= 6 * inputTries) && inputArrayLetters.length < 6 + 6 * (inputTries)){
+      inputLetters[inputArrayLetters.length + 6 * (inputTries)] = <td className='td-notSelected' key={"input" + (inputArrayLetters.length-1)}>{event.key.toUpperCase()}</td>;
       inputArrayLetters.push(event.key.toUpperCase());
       this.setState({inputLetters, inputArrayLetters});
     }
     else if (!isLetter && (inputArrayLetters.length > 6 * inputTries) && event.keyCode === 8){
         inputArrayLetters.pop();
-        inputLetters[inputArrayLetters.length] = <td className='td-notSelected' key={"input" + (inputArrayLetters.length)}></td>;
+        inputLetters[inputArrayLetters.length] = <td className='td-notSelected' key={"input" + (inputArrayLetters.length-1)}></td>;
         this.setState({inputLetters, inputArrayLetters});
     }
-    else if (event.keyCode === 13 && inputArrayLetters.length === 6 * (inputTries + 1)){
+    else if (event.keyCode === 13 && inputArrayLetters.length === 6 + 6 * (inputTries)){
       inputTries += 1;
       inputTriesLeft -=1;
+
+      if (inputTriesLeft === 0){
+        document.removeEventListener("keydown", this.keyboardPressed.bind(this), false);
+      }
 
       this.setState({inputTries, inputTriesLeft});
     }
@@ -137,21 +141,28 @@ class App extends React.Component{
     const closeBy = this.state.close;
     const numFound = this.state.found;
     const lettersFound = this.state.lettersFound;
+    var matrixTriesLeft = this.state.matrixTriesLeft;
     
     if (numFound === 6 || this.state.matrixTriesLeft === 0){
       return;
     }
+    matrixTriesLeft -= 1;
     
      for(var i = 0; i < this.state.squareNumber; i++){
       if(boxNumber === this.state.arrayPositions[i]){
 
         allCells[boxNumber] = <td className='td-found' key={boxNumber} data-key={boxNumber} ></td>
         closeBy[i].found = true;
-        lettersFound[numFound] = <td className='td-found' key={"found" + boxNumber} data-key={boxNumber} >{closeBy[i].value}</td>
+        if (closeBy[i].value.toUpperCase() === this.state.word[numFound].toUpperCase()){
+          lettersFound[numFound] = <td className='td-found' key={"found" + boxNumber} data-key={boxNumber} >{closeBy[i].value}</td>
+        }
+        else {
+          lettersFound[numFound] = <td className='td-foundNotRight' key={"found" + boxNumber} data-key={boxNumber} >{closeBy[i].value}</td>
+        }
 
-        this.setState({ cells: allCells, close: closeBy, lettersFound: lettersFound, found: numFound + 1, matrixTriesLeft: this.state.matrixTriesLeft - 1});
+        this.setState({ cells: allCells, close: closeBy, lettersFound: lettersFound, found: numFound + 1, matrixTriesLeft: matrixTriesLeft});
 
-        if (numFound + 1 === 6) {
+        if (numFound + 1 === 6 || matrixTriesLeft === 0) {
           document.addEventListener("keydown", this.keyboardPressed.bind(this), false);
         }
         return;
@@ -185,11 +196,11 @@ class App extends React.Component{
 
     allCells[boxNumber] = <td className='td-selected' key={boxNumber} data-key={boxNumber} >{show}</td>
 
-    if (this.state.matrixTriesLeft - 1 === 0) {
+    if (matrixTriesLeft === 0) {
       document.addEventListener("keydown", this.keyboardPressed.bind(this), false);
     }
 
-    this.setState({ cells: allCells, matrixTriesLeft: this.state.matrixTriesLeft - 1 });
+    this.setState({ cells: allCells, matrixTriesLeft: matrixTriesLeft });
   }
 
   array = ["âmbito",
